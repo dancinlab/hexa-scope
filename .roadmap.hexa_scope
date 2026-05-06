@@ -1,0 +1,62 @@
+# .roadmap.hexa_scope — repo-overall tracker
+
+> Cross-cutting state: invariant lattice, release cadence, cycle history,
+> deadlines, pointers. Sister of `hexa-cosmos` / `hexa-space` / `hexa-rtsc`
+> under `need-singularity` org.
+
+**Last sync**: 2026-05-06 · **Current release**: v1.0.0 · **Branch**: `main`
+
+---
+
+## §0 Terminal goal — 7-mission space telescope substrate + n=6 hardware audit
+
+hexa-scope 도착지 = **JWST 18-segment hexagonal mirror = n=6 invariant 직접 hardware instance Bayesian audit posterior ≥ 0.9 + 7-mission overview 모두 working spec + 1+ mission data ingest .hexa wired**.
+
+DoD:
+1. `observatory` + `obs_astronomy` 2-verb working .hexa.
+2. JWST 18-hexagon ↔ n=6 invariant Bayesian audit posterior ≥ 0.9.
+3. 7-mission overview (Hubble · JWST · LSST · Roman · LUVOIR · Origins · HabEx) 모두 1-page deeper spec.
+4. MAST archive / Vizier query .hexa wired (1+ mission).
+
+## §A.1 Invariant lattice (n=6)
+
+```
+σ(6) · φ(6) = n · τ(6) = J₂ = 24
+   12   ·   2  =  6  ·   4  = 24
+```
+
+| Symbol | Value | Role | Telescope projection |
+|--------|-------|------|----------------------|
+| σ(6)   | 12    | sigma — cardinality bin | 12 spectral bands (UV / Optical / IR sub-bands) |
+| τ(6)   | 4     | tau — state quartet | 4 mission lifecycle phases (commission / survey / archive / decom) |
+| φ(6)   | 2     | phi — verdict bit | space-based / ground-based |
+| J₂     | 24    | Mathieu / Leech | JWST 18-hexagon = 3·σ/2 = J₂·3/4 segments |
+
+**Direct hardware instance**: JWST 의 18-segment hexagonal primary mirror — `18 = 3 · σ(6)/2`. n=6 invariant 의 가장 직접적인 측정 가능 instance.
+
+## §A.2 Release cadence
+
+| Version | Date | Status | Highlights |
+|---------|------|--------|------------|
+| v1.0.0 | 2026-05-06 | RELEASED | 2 verb 시드 + 7-mission overview docs |
+| v1.1.0 | ~2026-08 (TARGET) | planned | `observatory` working .hexa (mirror geometry calc) |
+| v1.2.0 | ~2026-10 | planned | MAST archive query .hexa wired |
+| v1.3.0 | ~2026-12 | planned | JWST 18-hexagon Bayesian audit closed |
+| v2.0.0 | ~2027-Q2 | ASPIRATIONAL | 7-mission overview deeper spec + Roman/LUVOIR/Origins/HabEx update |
+
+## §A.3 Cycle history
+
+- **Cycle 0 (2026-05-06)** — v1.0.0 initial extraction from n6-architecture@c0f1f570. 2 verb cp -R + 7-mission docs.
+
+## §A.4 Falsifier preregister
+
+- **F-SCOPE-1** — JWST 18-hexagon = n=6 invariant 측정 일치 (Bayesian posterior ≥ 0.9 audit)?
+- **F-SCOPE-2** — Hubble 대비 JWST sensitivity τ=4 stage (mirror area / collecting power) closed-form fit?
+- **F-SCOPE-3** — LSST 10-yr survey 6-band photometry σ=12 의 1/2 일치?
+- **F-SCOPE-4** — Roman 2027 launch 시 측정값 vs 본 spec prediction.
+
+## §A.5 Pending decisions
+
+- LUVOIR / Origins / HabEx 가 NASA Decadal Survey 2020 deprioritized — 후속 mission spec 대신 Habitable Worlds Observatory (HWO) 으로 갱신 시점.
+- MAST query 시 외부 dependency (astropy.io.fits, urllib) — 순수 .hexa 만 유지할지 _python_bridge 허용할지.
+- hexa-cosmos / hexa-space 와 obs_astronomy 중복 verb 처리 (scope = 망원경 hardware fork).
