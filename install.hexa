@@ -1,0 +1,61 @@
+// install.hexa — hx build hook for hexa-scope.
+//
+// Invoked by `hx install hexa-scope` (hexa-lang package manager) right after
+// the GitHub checkout (or symlink from /Users/ghost/core/hexa-scope) lands in
+// $HX_PKG_DIR. hx passes:
+//   HX_PKG_DIR     — absolute path to the package root
+//   HX_BIN_DIR     — ~/.hx/bin
+//   HX_PKG_NAME    — "hexa-scope"
+//   HX_HOOK_PHASE  — "pre" | "post" | "both" (default: "both")
+//
+// Mirrors hexa-bio/install.hexa pattern (sister, 2026-05-04).
+//
+// Responsibilities (each idempotent, raw#9 STRICT — no .py creation):
+//   1. Pre-install: nothing required (pure hexa + markdown spec).
+//   2. Post-install: run `hexa-scope selftest` via the freshly-staged
+//      cli/hexa-scope.hexa. Selftest output captured; non-PASS = warn-only.
+//
+// raw#9 hexa-only, raw#11 snake_case, raw#15 no-hardcode.
+// raw#10 honest C3: see hexa-scope/README.md "Status" section.
+
+fn run_quick_selftest(root: str) -> bool {
+    let cli = root + "/cli/hexa-scope.hexa"
+    let exists = exec("[ -f \"" + cli + "\" ] && echo y || echo n").trim()
+    if exists != "y" {
+        eprintln("[hexa-scope/install] WARN: cli/hexa-scope.hexa missing — skip selftest")
+        return false
+    }
+    println("[hexa-scope/install] [post] running quick selftest (2-verb + 7-mission sentinel sweep)")
+    let cmd = "HEXA_SCOPE_ROOT=\"" + root + "\" hexa run \"" + cli + "\" selftest 2>&1"
+    let raw = exec(cmd)
+    if raw.contains("__HEXA_SCOPE_SELFTEST__ PASS") {
+        println("[hexa-scope/install]   selftest PASS — all sentinels present")
+        return true
+    }
+    eprintln("[hexa-scope/install] WARN: selftest non-PASS (warn-only, not a blocker)")
+    eprintln("  hint: missing module file or sentinel mismatch — see README §Status")
+    return false
+}
+
+fn main() -> void {
+    let mut root = env("HX_PKG_DIR")
+    if root == "" { root = exec("pwd").trim() }
+    let phase = env("HX_HOOK_PHASE")
+    let mut p = phase
+    if p == "" { p = "both" }
+    println("[hexa-scope/install] HX_PKG_DIR=" + root + " phase=" + p)
+
+    let entry = root + "/cli/hexa-scope.hexa"
+    let entry_ok = exec("[ -f \"" + entry + "\" ] && echo y || echo n").trim()
+    if entry_ok != "y" {
+        eprintln("[hexa-scope/install] ERROR: canonical entry missing: " + entry)
+        exit(1)
+    }
+    println("[hexa-scope/install] canonical entry OK: cli/hexa-scope.hexa")
+
+    if p == "post" || p == "both" {
+        let _ = run_quick_selftest(root)  // warn-only
+    }
+
+    println("[hexa-scope/install] done — hx will generate " + env("HX_BIN_DIR") + "/hexa-scope shim")
+}

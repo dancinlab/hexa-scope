@@ -1,0 +1,209 @@
+#!hexa strict
+// hexa-scope/cli/hexa-scope.hexa — standalone hexa-scope CLI router (placeholder)
+//
+// Space telescope substrate — Hubble·JWST·LSST·Roman + post-Hubble missions.
+// 2-verb seed router + 7-mission lookup:
+//   observatory   — cosmic-observatory spec (md seed)             (SEED, v1.0.0)
+//   obs_astronomy — observational-astronomy spec (md seed)        (SEED, v1.0.0)
+//   mission <name> — print 1-page framework for {hubble, jwst, lsst, roman,
+//                    luvoir, origins, habex}                       (DOC, v1.0.0)
+//
+// Plus utility subcmds:
+//   status      — verb status table (2/2 seeded, 0/2 wired; 7 mission docs)
+//   selftest    — sentinel sweep (verifies 2 seed + 7 mission docs present)
+//   help        — this help
+//   --version   — print version
+//
+// Root resolution: $HEXA_SCOPE_ROOT env, else inferred from $0 dirname.
+//
+// Constraints:
+//   raw#9   — hexa-only orchestration (no python bridge in v1.0.0)
+//   raw#15  — write-confined (audit log only)
+//   raw#10  — honest C3: this is a SPEC-FIRST placeholder dispatcher.
+//             Working .hexa runtime semantics are TBD.
+//
+// Cost: $0 (Mac local; pure file-existence sentinels + cat fallback).
+
+let VERSION = "1.0.0"
+
+let HOME = env("HOME")
+let HEXA_SCOPE_ROOT_ENV = env("HEXA_SCOPE_ROOT")
+
+fn hexa_scope_root() -> str {
+    if HEXA_SCOPE_ROOT_ENV.len() > 0 { return HEXA_SCOPE_ROOT_ENV }
+    let inferred = exec("dirname \"$(dirname \"$0\")\" 2>/dev/null || true").trim()
+    if inferred.len() > 0 { return inferred }
+    return HOME + "/.hexa-scope"  // @allow-devpath
+}
+
+let HS = hexa_scope_root()
+
+let SEED_OBSERVATORY    = HS + "/observatory/cosmic-observatory.md"
+let SEED_OBS_ASTRONOMY  = HS + "/obs_astronomy/observational-astronomy.md"
+let MISSION_DIR         = HS + "/docs/missions"
+
+let MISSIONS = ["hubble", "jwst", "lsst", "roman", "luvoir", "origins", "habex"]
+
+let LOG_PATH = HS + "/state/hexa_scope_cli.log"
+
+fn shq(s: str) -> str {
+    return "'" + s.replace("'", "'\\''") + "'"
+}
+
+fn _file_exists(p: str) -> bool {
+    let r = exec("[ -f " + shq(p) + " ] && echo yes || echo no").trim()
+    return r == "yes"
+}
+
+fn _ts_now() -> str {
+    return exec("date -u '+%Y-%m-%dT%H:%M:%SZ'").trim()
+}
+
+fn _audit(subcmd: str, exit_code: int) {
+    let line = "{\"ts\":\"" + _ts_now() + "\",\"caller\":\"hexa_scope_standalone\",\"subcmd\":\"hexa-scope " +
+               subcmd + "\",\"exit_code\":" + str(exit_code) + ",\"version\":\"" + VERSION + "\"}"
+    exec("mkdir -p " + shq(HS + "/state") + " 2>/dev/null")
+    exec("echo " + shq(line) + " >> " + shq(LOG_PATH) + " 2>/dev/null")
+}
+
+fn _print_md(p: str) {
+    if _file_exists(p) == false {
+        println("ERROR: doc not found: " + p)
+        return
+    }
+    let raw = exec("cat " + shq(p) + " 2>/dev/null")
+    println(raw)
+}
+
+fn cmd_observatory() {
+    println("=== hexa-scope :: observatory (cosmic-observatory seed) ===")
+    _print_md(SEED_OBSERVATORY)
+    println("__HEXA_SCOPE_OBSERVATORY__ SEED_OK")
+    _audit("observatory", 0)
+}
+
+fn cmd_obs_astronomy() {
+    println("=== hexa-scope :: obs_astronomy (observational-astronomy seed) ===")
+    _print_md(SEED_OBS_ASTRONOMY)
+    println("__HEXA_SCOPE_OBS_ASTRONOMY__ SEED_OK")
+    _audit("obs_astronomy", 0)
+}
+
+fn cmd_mission(name: str) {
+    let mut found = false
+    for m in MISSIONS {
+        if m == name { found = true }
+    }
+    if found == false {
+        println("ERROR: unknown mission '" + name + "'")
+        println("known: hubble jwst lsst roman luvoir origins habex")
+        _audit("mission " + name, 2)
+        exit(2)
+    }
+    let p = MISSION_DIR + "/" + name + ".md"
+    println("=== hexa-scope :: mission " + name + " ===")
+    _print_md(p)
+    println("__HEXA_SCOPE_MISSION_" + name.upper() + "__ DOC_OK")
+    _audit("mission " + name, 0)
+}
+
+fn cmd_status() {
+    println("hexa-scope " + VERSION + " — substrate status")
+    println("")
+    println("verbs (seeded from n6-architecture@c0f1f570):")
+    let v1 = if _file_exists(SEED_OBSERVATORY) { "OK" } else { "MISSING" }
+    let v2 = if _file_exists(SEED_OBS_ASTRONOMY) { "OK" } else { "MISSING" }
+    println("  observatory     " + v1)
+    println("  obs_astronomy   " + v2)
+    println("")
+    println("missions (docs/missions/):")
+    for m in MISSIONS {
+        let p = MISSION_DIR + "/" + m + ".md"
+        let s = if _file_exists(p) { "OK" } else { "MISSING" }
+        println("  " + m + "  " + s)
+    }
+    _audit("status", 0)
+}
+
+fn cmd_selftest() {
+    println("hexa-scope selftest — sentinel sweep")
+    let mut all_ok = true
+    let probes = [SEED_OBSERVATORY, SEED_OBS_ASTRONOMY]
+    for p in probes {
+        if _file_exists(p) {
+            println("  [OK] " + p)
+        } else {
+            println("  [FAIL] " + p)
+            all_ok = false
+        }
+    }
+    for m in MISSIONS {
+        let p = MISSION_DIR + "/" + m + ".md"
+        if _file_exists(p) {
+            println("  [OK] mission/" + m)
+        } else {
+            println("  [FAIL] mission/" + m)
+            all_ok = false
+        }
+    }
+    if all_ok {
+        println("__HEXA_SCOPE_SELFTEST__ PASS")
+        _audit("selftest", 0)
+        return
+    }
+    println("__HEXA_SCOPE_SELFTEST__ FAIL")
+    _audit("selftest", 1)
+    exit(1)
+}
+
+fn cmd_help() {
+    println("hexa-scope " + VERSION + " — space telescope substrate (n=6 lattice)")
+    println("")
+    println("usage: hexa-scope <subcommand>")
+    println("")
+    println("verbs (2 seeded):")
+    println("  observatory               cosmic-observatory spec (md seed)")
+    println("  obs_astronomy             observational-astronomy spec (md seed)")
+    println("")
+    println("missions (7 framework docs):")
+    println("  mission hubble            HST · 1990 · 2.4 m monolith")
+    println("  mission jwst              JWST · 2021 · 6.5 m · 18 hex segments (n=6!)")
+    println("  mission lsst              Vera Rubin / LSST · 2025 · 8.4 m TMA")
+    println("  mission roman             Roman · 2027 · 2.4 m wide-field IR + CGI")
+    println("  mission luvoir            LUVOIR proposal → HWO (UV/O/IR)")
+    println("  mission origins           Origins proposal (far-IR)")
+    println("  mission habex             HabEx proposal → HWO (coronagraph/starshade)")
+    println("")
+    println("utility:")
+    println("  status                    print substrate status table")
+    println("  selftest                  sentinel sweep")
+    println("  help                      this help")
+    println("  --version                 print version")
+}
+
+fn main(args: [str]) {
+    if args.len() == 0 {
+        cmd_help()
+        return
+    }
+    let sub = args[0]
+    if sub == "--version" || sub == "-v" {
+        println("hexa-scope " + VERSION)
+        return
+    }
+    if sub == "observatory" { cmd_observatory(); return }
+    if sub == "obs_astronomy" { cmd_obs_astronomy(); return }
+    if sub == "mission" {
+        if args.len() < 2 {
+            println("ERROR: mission requires a name; try: hubble jwst lsst roman luvoir origins habex")
+            exit(2)
+        }
+        cmd_mission(args[1])
+        return
+    }
+    if sub == "status" { cmd_status(); return }
+    if sub == "selftest" { cmd_selftest(); return }
+    if sub == "help" || sub == "--help" || sub == "-h" { cmd_help(); return }
+    println("ERROR: unknown subcommand '" + sub + "' — try `hexa-scope help`")
+    exit(2)
+}

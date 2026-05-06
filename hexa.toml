@@ -1,0 +1,72 @@
+# hexa.toml — hexa-scope standalone package manifest
+#
+# Spec: shared/hexa-lang/hexa-toml-spec.json (version 1.0.0)
+# Provenance: extracted from n6-architecture@c0f1f570 on 2026-05-06
+#   - observatory/    ← domains/physics/cosmic-observatory/
+#   - obs_astronomy/  ← domains/space/observational-astronomy/
+
+[package]
+name = "hexa-scope"
+version = "1.0.0"
+entry = "cli/hexa-scope.hexa"
+description = "Space telescope substrate — Hubble·JWST·LSST·Roman + post-Hubble missions (LUVOIR/Origins/HabEx). n=6 invariant lattice direct instance via JWST 18 hexagonal mirror segments."
+license = "MIT"
+authors = ["박민우 <nerve011235@gmail.com>"]
+repository = "https://github.com/need-singularity/hexa-scope"
+homepage = "https://github.com/need-singularity/hexa-scope"
+readme = "README.md"
+keywords = ["space-telescope", "hubble", "jwst", "lsst", "roman", "luvoir", "habex", "origins", "n6-invariant"]
+categories = ["astronomy", "observatory", "space-mission"]
+
+[[bin]]
+name = "hexa-scope"
+path = "cli/hexa-scope.hexa"
+
+[test]
+runner = "hexa"
+files = [
+    "tests/test_selftest.hexa",
+]
+
+[scripts]
+install = "install.hexa"
+
+# ── Modules manifest (2 verbs + 7 missions + selftest) ─────
+# observatory/   — IMPORTED from n6-architecture/domains/physics/cosmic-observatory/
+# obs_astronomy/ — IMPORTED from n6-architecture/domains/space/observational-astronomy/
+# docs/missions/ — fresh per-mission framework documents (Hubble/JWST/LSST/Roman + LUVOIR/Origins/HabEx)
+[modules]
+docs = [
+    "observatory/cosmic-observatory.md",
+    "obs_astronomy/observational-astronomy.md",
+    "docs/missions/hubble.md",
+    "docs/missions/jwst.md",
+    "docs/missions/lsst.md",
+    "docs/missions/roman.md",
+    "docs/missions/luvoir.md",
+    "docs/missions/origins.md",
+    "docs/missions/habex.md",
+]
+
+# ── Dependencies ───────────────────────────────────────────
+[dependencies]
+hexa-lang = ">=1.0.0"
+
+# ── Closure provenance (raw#10 honest C3) ─────────────────
+[closure]
+verbs_total = 2
+verbs_seeded = 2
+verbs_wired = 0
+mission_overviews = 7
+verdict = "SEED_FRAMEWORK"
+extracted_from = "n6-architecture@c0f1f570 (2026-05-06)"
+
+# ── Scope honesty (raw#10 C3) ─────────────────────────────
+[scope]
+honest_scope = "2-verb seed (observatory + obs_astronomy) imported as md spec; 7-mission overview docs (Hubble, JWST, LSST, Roman, LUVOIR, Origins, HabEx). spec-first — working .hexa CLI dispatcher is a placeholder. Telescope-observation specialization fork from hexa-cosmos (theory cousin) and hexa-space (operations cousin)."
+not_scope = ["live mission planning / scheduling", "FITS pipeline / data reduction", "in-orbit telemetry ingestion", "ground-station operations"]
+n6_lattice_anchor = "JWST 18 hexagonal beryllium mirror segments = direct n=6 invariant lattice instance. σ(6)=12 ↔ inner+outer hex ring 6+6=12 vertices; τ(6)=4 ↔ 4 instruments (NIRCam/NIRSpec/NIRISS/MIRI); φ(6)=2 ↔ thermal split (40 K passive / 6.7 K MIRI); J₂=24 ↔ 18 segments + 6 secondary struts (candidate)."
+
+# ── Cost profile ──────────────────────────────────────────
+[cost]
+mac_local_default = "$0 (pure markdown spec + placeholder hexa CLI)"
