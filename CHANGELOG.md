@@ -7,7 +7,7 @@ All notable changes to **hexa-scope** are documented here. Format follows
 
 ### Added
 
-- Initial extraction from `n6-architecture@c0f1f570`.
+- Initial extraction from `canon@c0f1f570`.
 - 2-verb cp -R seed:
   - `observatory/` ← `domains/physics/cosmic-observatory/`
   - `obs_astronomy/` ← `domains/space/observational-astronomy/`

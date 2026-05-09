@@ -110,7 +110,7 @@ fn cmd_mission(name: str) {
 fn cmd_status() {
     println("hexa-scope " + VERSION + " — substrate status")
     println("")
-    println("verbs (seeded from n6-architecture@c0f1f570):")
+    println("verbs (seeded from canon@c0f1f570):")
     let v1 = if _file_exists(SEED_OBSERVATORY) { "OK" } else { "MISSING" }
     let v2 = if _file_exists(SEED_OBS_ASTRONOMY) { "OK" } else { "MISSING" }
     println("  observatory     " + v1)

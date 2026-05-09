@@ -60,4 +60,4 @@ hexa-scope --self-test
 
 MIT — Copyright (c) 2026 need-singularity (박민우 <nerve011235@gmail.com>)
 
-Provenance: extracted from [n6-architecture@c0f1f570](https://github.com/need-singularity/n6-architecture) on 2026-05-06.
+Provenance: extracted from [canon@c0f1f570](https://github.com/need-singularity/canon) on 2026-05-06.

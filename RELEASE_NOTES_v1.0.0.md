@@ -1,7 +1,7 @@
 # hexa-scope v1.0.0 — Release Notes
 
 **Release date**: 2026-05-06
-**Provenance**: extracted from [n6-architecture@c0f1f570](https://github.com/need-singularity/n6-architecture)
+**Provenance**: extracted from [canon@c0f1f570](https://github.com/need-singularity/canon)
 **License**: MIT
 
 ## Highlights
