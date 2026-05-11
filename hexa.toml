@@ -12,8 +12,8 @@ entry = "cli/hexa-scope.hexa"
 description = "Space telescope substrate — Hubble·JWST·LSST·Roman + post-Hubble missions (LUVOIR/Origins/HabEx). n=6 invariant lattice direct instance via JWST 18 hexagonal mirror segments."
 license = "MIT"
 authors = ["박민우 <nerve011235@gmail.com>"]
-repository = "https://github.com/need-singularity/hexa-scope"
-homepage = "https://github.com/need-singularity/hexa-scope"
+repository = "https://github.com/dancinlab/hexa-scope"
+homepage = "https://github.com/dancinlab/hexa-scope"
 readme = "README.md"
 keywords = ["space-telescope", "hubble", "jwst", "lsst", "roman", "luvoir", "habex", "origins", "n6-invariant"]
 categories = ["astronomy", "observatory", "space-mission"]

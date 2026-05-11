@@ -45,7 +45,7 @@ JWST 18-hexagonal mirror = n=6 invariant **direct hardware instance** — 본 su
 ## § Install
 
 ```bash
-hx install need-singularity/hexa-scope
+hx install dancinlab/hexa-scope
 hexa-scope --self-test
 ```
 
@@ -53,12 +53,12 @@ hexa-scope --self-test
 
 | Sister substrate | 역할 |
 |---|---|
-| 🌌 [need-singularity/hexa-cosmos](https://github.com/need-singularity/hexa-cosmos) | 이론 cosmology cousin (cosmology + particle + cosmic-observatory) |
-| 🚀 [need-singularity/hexa-space](https://github.com/need-singularity/hexa-space) | 관측 운영 cousin (aerospace + astronomy 11-verb) |
-| 🧲 [need-singularity/hexa-rtsc](https://github.com/need-singularity/hexa-rtsc) | cryogenic optics 의존 (JWST MIRI -266°C) |
+| 🌌 [dancinlab/hexa-cosmos](https://github.com/dancinlab/hexa-cosmos) | 이론 cosmology cousin (cosmology + particle + cosmic-observatory) |
+| 🚀 [dancinlab/hexa-space](https://github.com/dancinlab/hexa-space) | 관측 운영 cousin (aerospace + astronomy 11-verb) |
+| 🧲 [dancinlab/hexa-rtsc](https://github.com/dancinlab/hexa-rtsc) | cryogenic optics 의존 (JWST MIRI -266°C) |
 
 ## § License
 
-MIT — Copyright (c) 2026 need-singularity (박민우 <nerve011235@gmail.com>)
+MIT — Copyright (c) 2026 dancinlab (박민우 <nerve011235@gmail.com>)
 
-Provenance: extracted from [canon@c0f1f570](https://github.com/need-singularity/canon) on 2026-05-06.
+Provenance: extracted from [canon@c0f1f570](https://github.com/dancinlab/canon) on 2026-05-06.

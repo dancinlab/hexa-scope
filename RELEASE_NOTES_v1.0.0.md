@@ -1,7 +1,7 @@
 # hexa-scope v1.0.0 — Release Notes
 
 **Release date**: 2026-05-06
-**Provenance**: extracted from [canon@c0f1f570](https://github.com/need-singularity/canon)
+**Provenance**: extracted from [canon@c0f1f570](https://github.com/dancinlab/canon)
 **License**: MIT
 
 ## Highlights
@@ -28,6 +28,6 @@
 
 ## Cross-link
 
-- [hexa-cosmos](https://github.com/need-singularity/hexa-cosmos) — 이론 cosmology cousin
-- [hexa-space](https://github.com/need-singularity/hexa-space) — 운영 cousin
-- [hexa-rtsc](https://github.com/need-singularity/hexa-rtsc) — cryogenic optics 의존
+- [hexa-cosmos](https://github.com/dancinlab/hexa-cosmos) — 이론 cosmology cousin
+- [hexa-space](https://github.com/dancinlab/hexa-space) — 운영 cousin
+- [hexa-rtsc](https://github.com/dancinlab/hexa-rtsc) — cryogenic optics 의존
