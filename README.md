@@ -42,7 +42,7 @@ JWST의 18-segment hexagonal primary mirror가 가장 단적인 n=6 instance —
 **spec-first** (작동 .hexa CLI TBD). 2-verb cp -R 시드 + 7-mission overview docs.
 JWST 18-hexagonal mirror = n=6 invariant **direct hardware instance** — 본 substrate가 정당화하는 가장 강한 falsifier 후보.
 
-## § Install
+## Install
 
 ```bash
 # 1. Install hexa-lang (ships `hexa` + `hx` package manager)
@@ -52,7 +52,7 @@ JWST 18-hexagonal mirror = n=6 invariant **direct hardware instance** — 본 su
 hx install hexa-scope          # global, pulls latest from registry
 ```
 
-## § Run
+## Run
 
 ```bash
 hexa-scope observatory               # cosmic-observatory spec (md seed)
