@@ -45,8 +45,28 @@ JWST 18-hexagonal mirror = n=6 invariant **direct hardware instance** — 본 su
 ## § Install
 
 ```bash
-hx install dancinlab/hexa-scope
-hexa-scope --self-test
+# 1. Install hexa-lang (ships `hexa` + `hx` package manager)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dancinlab/hexa-lang/main/install.sh)"
+
+# 2. Install hexa-scope
+hx install hexa-scope          # global, pulls latest from registry
+```
+
+## § Run
+
+```bash
+hexa-scope observatory               # cosmic-observatory spec (md seed)
+hexa-scope obs_astronomy             # observational-astronomy spec (md seed)
+hexa-scope mission hubble            # HST · 1990 · 2.4 m monolith
+hexa-scope mission jwst              # JWST · 2021 · 6.5 m · 18 hex segments (n=6!)
+hexa-scope mission lsst              # Vera Rubin / LSST · 2025 · 8.4 m TMA
+hexa-scope mission roman             # Roman · 2027 · 2.4 m wide-field IR + CGI
+hexa-scope mission luvoir            # LUVOIR proposal → HWO (UV/O/IR)
+hexa-scope mission origins           # Origins proposal (far-IR)
+hexa-scope mission habex             # HabEx proposal → HWO (coronagraph/starshade)
+hexa-scope status                    # print substrate status table
+hexa-scope selftest                  # sentinel sweep
+hexa-scope help                      # full --help
 ```
 
 ## § Cross-link
