@@ -58,8 +58,15 @@ verbs_total = 2
 verbs_seeded = 2
 verbs_wired = 0
 mission_overviews = 7
-verdict = "SEED_FRAMEWORK"
+verdict = "SPEC_FIRST_CLOSED_4_OF_4"
 extracted_from = "canon@c0f1f570 (2026-05-06)"
+# 4-script SPEC_FIRST verify pattern (sister of hexa-matter / hexa-space / hexa-cosmos)
+verify_scripts = 4
+verify_scripts_pass = 4
+verify_pattern = "spec_presence + lattice_arithmetic(aux) + real_limits_anchor + closure_consistency"
+real_limits_audit = "LIMIT_BREAKTHROUGH.md (Wave M, 2026-05-12)"
+lattice_policy = "LATTICE_POLICY.md (real-limits-first, §1.3)"
+honesty_marker = "raw#10 C3: NASA/ESA/JAXA/CNSA/NSF use THEIR OWN ICDs (HST 2.4m, JWST 6.5m/18hex, LSST 8.4m, Roman 2.4m); LUVOIR/Origins/HabEx remain CONCEPT funding-pending"
 
 # ── Scope honesty (raw#10 C3) ─────────────────────────────
 [scope]

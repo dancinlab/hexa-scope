@@ -1,0 +1,84 @@
+#!hexa strict
+// hexa-scope/verify/spec_presence.hexa — 2-verb + 7-mission spec doc presence verifier.
+//
+// Closure anchor #1 for hexa-scope (spec-first telescope substrate):
+// each of the 2 verbs (observatory, obs_astronomy) and 7 mission framework
+// docs (Hubble/JWST/LSST/Roman + concept LUVOIR/Origins/HabEx) declared in
+// hexa.toml [modules] must resolve to a real markdown at <subdir>/<filename>.
+// This is the *honest* closure check for a spec-first repo — file presence,
+// not behavioural promise.
+//
+// Per LATTICE_POLICY §1.3 rule 1: spec-presence is real engineering
+// verification (files exist on disk); not a lattice tautology.
+// Per raw#10 C3: future-mission docs (LUVOIR/Origins/HabEx) remain
+//   CONCEPT — UNVERIFIED + funding-pending markers preserved by README,
+//   the mission docs themselves are sourced from NASA Astro2020 study reports.
+
+let HOME = env("HOME")
+let HEXA_SCOPE_ROOT_ENV = env("HEXA_SCOPE_ROOT")
+
+fn shq(s: str) -> str {
+    return "'" + s.replace("'", "'\\''") + "'"
+}
+
+fn _resolve_root() -> str {
+    if HEXA_SCOPE_ROOT_ENV.len() > 0 { return HEXA_SCOPE_ROOT_ENV }
+    let oldpwd = env("OLDPWD")
+    if oldpwd.len() > 0 {
+        let t = exec("[ -f " + shq(oldpwd) + "/hexa.toml ] && echo y || echo n").trim()
+        if t == "y" { return oldpwd }
+    }
+    let pwd = env("PWD")
+    if pwd.len() > 0 {
+        let t = exec("[ -f " + shq(pwd) + "/hexa.toml ] && echo y || echo n").trim()
+        if t == "y" { return pwd }
+    }
+    return HOME + "/core/hexa-scope"
+}
+
+fn _file_exists(p: str) -> bool {
+    let r = exec("[ -f " + shq(p) + " ] && echo yes || echo no").trim()
+    return r == "yes"
+}
+
+// 2-verb + 7-mission spec registry — must match cli/hexa-scope.hexa
+// dispatch table and hexa.toml [modules] docs list.
+let VERBS = [
+    ["observatory",        "observatory/cosmic-observatory.md"],
+    ["obs_astronomy",      "obs_astronomy/observational-astronomy.md"],
+    ["mission:hubble",     "docs/missions/hubble.md"],
+    ["mission:jwst",       "docs/missions/jwst.md"],
+    ["mission:lsst",       "docs/missions/lsst.md"],
+    ["mission:roman",      "docs/missions/roman.md"],
+    ["mission:luvoir",     "docs/missions/luvoir.md"],
+    ["mission:origins",    "docs/missions/origins.md"],
+    ["mission:habex",      "docs/missions/habex.md"],
+]
+
+fn main() {
+    let root = _resolve_root()
+    println("hexa-scope/verify/spec_presence — 2 verbs + 7 mission docs presence")
+    println("  root: " + root)
+    println("")
+    let mut ok = 0
+    let mut bad = 0
+    for row in VERBS {
+        let verb = row[0]
+        let rel = row[1]
+        let abs_p = root + "/" + rel
+        if _file_exists(abs_p) {
+            println("  [PASS] " + verb + " -> " + rel)
+            ok = ok + 1
+        } else {
+            println("  [FAIL] " + verb + " -> " + rel + " MISSING (abs: " + abs_p + ")")
+            bad = bad + 1
+        }
+    }
+    println("")
+    println("  spec docs present: " + str(ok) + " / 9")
+    if bad > 0 {
+        println("__HEXA_SCOPE_SPEC_PRESENCE__ FAIL")
+        exit(1)
+    }
+    println("__HEXA_SCOPE_SPEC_PRESENCE__ PASS")
+}
