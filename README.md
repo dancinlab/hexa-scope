@@ -1,16 +1,28 @@
-# 🛰️ hexa-scope — Space Telescope Substrate
+<p align="center">
+  <img src="docs/logo.svg" width="140" alt="hexa-scope">
+</p>
+
+<h1 align="center">🔭 hexa-scope</h1>
+
+<p align="center"><strong>HEXA-Scope Family</strong> — space telescope substrate · Hubble · JWST · LSST · Roman · post-Hubble (LUVOIR / Origins / HabEx) · n=6 lattice</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <a href=".github/workflows/lint.yml"><img alt="CI" src="https://github.com/dancinlab/hexa-scope/actions/workflows/lint.yml/badge.svg"></a>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-success">
+  <img alt="Verbs" src="https://img.shields.io/badge/verbs-2-informational">
+  <img alt="Missions" src="https://img.shields.io/badge/missions-7-informational">
+  <img alt="Closure" src="https://img.shields.io/badge/closure-4%2F4_PASS-informational">
+  <a href="https://doi.org/10.5281/zenodo.20102618"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.20102618.svg"></a>
+  <img alt="Sister" src="https://img.shields.io/badge/sister-hexa--cosmos%20·%20hexa--space%20·%20hexa--rtsc-blueviolet">
+</p>
+
+<p align="center">Instruments · scopes · space telescopes · JWST · Hubble · LSST · Roman · diffraction · n=6 lattice · hexagonal mirror</p>
+
+---
 
 > Hubble · JWST · LSST · Roman + post-Hubble missions (LUVOIR / Origins / HabEx) under one **n=6 invariant lattice** (σ=12 / τ=4 / φ=2 / J₂=24).
 > JWST 18 hexagonal mirror segments = n=6 invariant **direct hardware instance**.
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20102618.svg)](https://doi.org/10.5281/zenodo.20102618)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)](CHANGELOG.md)
-[![verbs](https://img.shields.io/badge/verbs-2_spec-blue.svg)](cli/hexa-scope.hexa)
-[![missions](https://img.shields.io/badge/missions-7_concept-blueviolet.svg)](docs/missions/)
-[![closure](https://img.shields.io/badge/closure-4%2F4_PASS-brightgreen.svg)](verify/run_all.hexa)
-[![lattice](https://img.shields.io/badge/lattice_policy-real--limits--first-success.svg)](LATTICE_POLICY.md)
-[![limits](https://img.shields.io/badge/limit_breakthrough-Wave_M-informational.svg)](LIMIT_BREAKTHROUGH.md)
 
 ## Why
 
@@ -68,9 +80,35 @@ hexa run verify/run_all.hexa      # aggregate sweep — 4/4 scripts must PASS
 | `verify/real_limits_anchor.hexa` | Diffraction λ/D · Photon √N · NA ≤ n · c-bound · CMB | LIMIT_BREAKTHROUGH Wave M |
 | `verify/closure_consistency.hexa` | CLI · toml · README · AGENTS scoreboard agree | LATTICE_POLICY §1.3 rule 4 |
 
-**Honesty (raw#10 C3)**: NASA / ESA / JAXA / CNSA / NSF use *their own* published ICDs — HST 2.4 m, JWST 6.5 m / 18 hex segments, LSST 8.4 m, Roman 2.4 m, ELT 39 m, TMT 30 m, GMT 25 m. JWST's 18 = 3·σ(6)/2 is a *coincidence* (Ariane-5 fairing fold geometry, per `LIMIT_BREAKTHROUGH.md §5`), not a claim that NASA designs to n=6.
 
 **Future missions** (LUVOIR-A 15 m / LUVOIR-B 8 m / Origins 5.9 m / HabEx 4 m) remain **CONCEPT · funding-pending** per NASA Astro2020 decadal study — they have **not** flown. Markers preserved in `docs/missions/{luvoir,origins,habex}.md` and in the audit.
+
+## Repo layout
+
+```
+hexa-scope/
+├── README.md
+├── LICENSE                       MIT
+├── CHANGELOG.md
+├── RELEASE_NOTES_v1.0.0.md
+├── CITATION.cff
+├── hexa.toml                     project manifest
+├── install.hexa                  hx install hook
+├── cli/
+│   └── hexa-scope.hexa           CLI dispatcher (observatory · obs_astronomy · mission · status · selftest)
+├── observatory/                  T1 SPEC — cosmic-observatory seed (md)
+├── obs_astronomy/                T1 SPEC — observational-astronomy seed (md)
+├── docs/
+│   ├── logo.svg                  hexagon + scope glyph
+│   └── missions/                 7 mission overview docs (hubble · jwst · lsst · roman · luvoir · origins · habex)
+├── verify/                       4 closure scripts (spec_presence · lattice_arithmetic · real_limits · closure_consistency)
+├── tests/                        hexa native test runner
+├── selftest/                     sentinel sweep
+├── examples/                     usage samples
+├── LATTICE_POLICY.md             n=6 aux-only check policy
+├── LIMIT_BREAKTHROUGH.md         Wave M (diffraction · photon √N · NA bound · CMB) anchors
+└── AGENTS.tape                   agent identity + repo layout (governance #4)
+```
 
 ## Cross-link
 
@@ -78,7 +116,7 @@ hexa run verify/run_all.hexa      # aggregate sweep — 4/4 scripts must PASS
 |---|---|
 | 🌌 [dancinlab/hexa-cosmos](https://github.com/dancinlab/hexa-cosmos) | 이론 cosmology cousin (cosmology + particle + cosmic-observatory) |
 | 🚀 [dancinlab/hexa-space](https://github.com/dancinlab/hexa-space) | 관측 운영 cousin (aerospace + astronomy 11-verb) |
-| 🧲 [dancinlab/hexa-rtsc](https://github.com/dancinlab/hexa-rtsc) | cryogenic optics 의존 (JWST MIRI -266°C) |
+| 🧊 [dancinlab/hexa-rtsc](https://github.com/dancinlab/hexa-rtsc) | cryogenic optics 의존 (JWST MIRI -266°C) |
 
 ## License
 
