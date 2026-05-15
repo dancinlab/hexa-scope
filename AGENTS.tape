@@ -46,7 +46,7 @@
 @I id001 := "hexa-scope" :: identity-claim [d=2026-05-14 active]
   kind = "HEXA-Scope family — instruments · scopes"
   brief = "HEXA-Scope family · instruments · scopes"
-  parent = "dancinlab/echoes"
+  parent = "dancinlab"
 
 @L l1 := "repo-layout" :: structure [active]
   .roadmap.hexa_scope -> "file"
