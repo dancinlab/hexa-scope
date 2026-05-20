@@ -10,13 +10,10 @@
 //
 // Mirrors hexa-bio/install.hexa pattern (sister, 2026-05-04).
 //
-// Responsibilities (each idempotent, raw#9 STRICT — no .py creation):
 //   1. Pre-install: nothing required (pure hexa + markdown spec).
 //   2. Post-install: run `hexa-scope selftest` via the freshly-staged
 //      cli/hexa-scope.hexa. Selftest output captured; non-PASS = warn-only.
 //
-// raw#9 hexa-only, raw#11 snake_case, raw#15 no-hardcode.
-// raw#10 honest C3: see hexa-scope/README.md "Status" section.
 
 fn run_quick_selftest(root: str) -> bool {
     let cli = root + "/cli/hexa-scope.hexa"

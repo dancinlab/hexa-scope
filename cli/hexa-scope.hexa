@@ -17,9 +17,6 @@
 // Root resolution: $HEXA_SCOPE_ROOT env, else inferred from $0 dirname.
 //
 // Constraints:
-//   raw#9   — hexa-only orchestration (no python bridge in v1.0.0)
-//   raw#15  — write-confined (audit log only)
-//   raw#10  — honest C3: this is a SPEC-FIRST placeholder dispatcher.
 //             Working .hexa runtime semantics are TBD.
 //
 // Cost: $0 (Mac local; pure file-existence sentinels + cat fallback).

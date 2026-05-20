@@ -10,7 +10,6 @@
 //
 // Per LATTICE_POLICY §1.3 rule 1: spec-presence is real engineering
 // verification (files exist on disk); not a lattice tautology.
-// Per raw#10 C3: future-mission docs (LUVOIR/Origins/HabEx) remain
 //   CONCEPT — UNVERIFIED + funding-pending markers preserved by README,
 //   the mission docs themselves are sourced from NASA Astro2020 study reports.
 
